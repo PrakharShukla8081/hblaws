@@ -9,6 +9,8 @@ import { ThemeProvider } from '@/components/shared/ThemeProvider';
 import { ThemeSwitcher } from '@/components/shared/ThemeSwitcher';
 import { MotionProvider } from '@/components/shared/MotionProvider';
 import { PageTransition } from '@/components/shared/PageTransition';
+import { SmoothScrollProvider } from '@/components/shared/SmoothScrollProvider';
+import { ScrollProgress } from '@/components/shared/ScrollProgress';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-body', display: 'swap' });
 const sora = Sora({
@@ -64,7 +66,9 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased">
         <MotionProvider>
-          <ThemeProvider>
+          <SmoothScrollProvider>
+            <ThemeProvider>
+              <ScrollProgress />
             <Header />
             <main>
               <PageTransition>{children}</PageTransition>
@@ -73,7 +77,8 @@ export default function RootLayout({
             <ThemeSwitcher />
             <CookieBanner />
             <DisclaimerModal />
-          </ThemeProvider>
+            </ThemeProvider>
+          </SmoothScrollProvider>
         </MotionProvider>
       </body>
     </html>

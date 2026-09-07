@@ -56,11 +56,13 @@ export function StaggerGroup({
       : ref.current?.children ?? [];
     media.add('(prefers-reduced-motion: reduce)', () => gsap.set(items, { opacity: 1, y: 0 }));
     media.add('not all and (prefers-reduced-motion: reduce)', () => {
-      gsap.fromTo(items, { opacity: 0, y: 24 }, {
+      gsap.fromTo(items, { opacity: 0, y: 24, scale: 0.96, rotateX: 6, transformPerspective: 800 }, {
         opacity: 1,
         y: 0,
+        scale: 1,
+        rotateX: 0,
         duration: 0.5,
-        ease: 'power2.out',
+        ease: 'power3.out',
         stagger: 0.08,
         scrollTrigger: { trigger: ref.current, start: 'top 85%', once: true },
       });

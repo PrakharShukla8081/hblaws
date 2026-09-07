@@ -21,6 +21,12 @@ import { FadeIn, StaggerGroup, StaggerItem } from '@/components/shared/Animation
 import { services, stats, whySelectUs, contactEmail } from '@/lib/data';
 import { SectionLabel } from '@/components/shared/SectionLabel';
 import { AnimatedCounter } from '@/components/shared/AnimatedCounter';
+import { useGSAP } from '@gsap/react';
+import { useRef } from 'react';
+import { gsap } from '@/lib/gsap';
+import { SplitHeading } from '@/components/shared/SplitHeading';
+import { ImageReveal } from '@/components/shared/ImageReveal';
+import { MagneticButton } from '@/components/shared/MagneticButton';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Briefcase,
@@ -29,11 +35,28 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 };
 
 export default function Home() {
+  const heroRef = useRef<HTMLElement>(null);
+  const heroImageRef = useRef<HTMLImageElement>(null);
+
+  useGSAP(() => {
+    const media = gsap.matchMedia();
+    media.add('(prefers-reduced-motion: reduce)', () => gsap.set(heroImageRef.current, { yPercent: 0 }));
+    media.add('not all and (prefers-reduced-motion: reduce)', () => {
+      gsap.to(heroImageRef.current, {
+        yPercent: 16,
+        ease: 'none',
+        scrollTrigger: { trigger: heroRef.current, start: 'top top', end: 'bottom top', scrub: true },
+      });
+    });
+    return () => media.revert();
+  }, { scope: heroRef });
+
   return (
     <>
       {/* ===== HERO ===== */}
-      <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-primary text-primary-foreground dark:bg-background">
+      <section ref={heroRef} className="relative flex min-h-[100svh] items-center overflow-hidden bg-primary text-primary-foreground dark:bg-background">
         <img
+          ref={heroImageRef}
           src="https://images.pexels.com/photos/6077296/pexels-photo-6077296.jpeg?auto=compress&cs=tinysrgb&w=1920"
           alt="Scales of justice in a law library"
           className="absolute inset-0 h-full w-full object-cover opacity-45"
@@ -47,12 +70,9 @@ export default function Home() {
             >
               Welcome to H&B Legal and Consultant
             </FadeIn>
-            <FadeIn
-              delay={0.15}
-              className="font-display text-3xl font-bold leading-[1.08] text-balance sm:text-4xl md:text-6xl lg:text-[clamp(2.5rem,5vw,4rem)]"
-            >
-              Attorneys Fighting For Your <span className="text-primary">Justice</span>
-            </FadeIn>
+            <SplitHeading highlight="Justice" className="font-display text-3xl font-bold leading-[1.08] text-balance sm:text-4xl md:text-6xl lg:text-[clamp(2.5rem,5vw,4rem)]">
+              Attorneys Fighting For Your Justice
+            </SplitHeading>
             <FadeIn
               delay={0.25}
               className="mt-6 max-w-2xl text-base leading-relaxed text-primary-foreground/75 sm:text-lg md:text-xl"
@@ -65,17 +85,17 @@ export default function Home() {
               delay={0.35}
               className="mt-8 flex flex-col gap-3 sm:flex-row"
             >
-              <Button asChild size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 sm:w-auto">
+              <MagneticButton asChild size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 sm:w-auto">
                 <Link href="/contact">
                   Free Consultation
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
-              </Button>
+              </MagneticButton>
               <Button
                 asChild
                 size="lg"
                 variant="outline"
-                  className="w-full border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground sm:w-auto"
+                className="w-full border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground sm:w-auto"
               >
                 <Link href="/services">Our Services</Link>
               </Button>
@@ -189,17 +209,21 @@ export default function Home() {
           <SectionLabel number="03" label="THE PRACTICE" />
           <div className="grid items-end gap-8 md:grid-cols-[1.35fr_0.8fr]">
             <figure>
-              <div className="flex aspect-[4/3] items-center justify-center rounded-xl border border-dashed border-muted-foreground bg-muted p-6 text-center text-xs uppercase tracking-wider text-muted-foreground shadow-sm">
+              <ImageReveal className="rounded-xl">
+                <div className="flex aspect-[4/3] items-center justify-center rounded-xl border border-dashed border-muted-foreground bg-muted p-6 text-center text-xs uppercase tracking-wider text-muted-foreground shadow-sm">
                 Add home-1.jpg to public/images/
-              </div>
+                </div>
+              </ImageReveal>
               <figcaption className="mt-3 text-xs font-bold uppercase tracking-[0.14em] text-primary">
                 Delhi · Principal office
               </figcaption>
             </figure>
             <figure className="md:mb-12">
-              <div className="flex aspect-[4/3] items-center justify-center rounded-xl border border-dashed border-muted-foreground bg-muted p-6 text-center text-xs uppercase tracking-wider text-muted-foreground shadow-sm">
+              <ImageReveal className="rounded-xl">
+                <div className="flex aspect-[4/3] items-center justify-center rounded-xl border border-dashed border-muted-foreground bg-muted p-6 text-center text-xs uppercase tracking-wider text-muted-foreground shadow-sm">
                 Add home-2.jpg to public/images/
-              </div>
+                </div>
+              </ImageReveal>
               <figcaption className="mt-3 text-xs font-bold uppercase tracking-[0.14em] text-primary">
                 Counsel · At work
               </figcaption>

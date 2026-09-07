@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useGSAP } from '@gsap/react';
+import { useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
@@ -8,12 +10,34 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
 import { navLinks } from '@/lib/data';
+import { gsap } from '@/lib/gsap';
+import { MagneticButton } from '@/components/shared/MagneticButton';
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === '/';
+  const isTransparent = isHome && !scrolled;
+  const navRef = useRef<HTMLElement>(null);
+
+  useGSAP(() => {
+    const links = navRef.current?.querySelectorAll<HTMLAnchorElement>('[data-nav-link]') ?? [];
+    links.forEach((link) => {
+      const underline = link.querySelector<HTMLElement>('[data-nav-underline]');
+      if (!underline) return;
+      const enter = () => gsap.to(underline, { scaleX: 1, duration: 0.25, ease: 'power2.out' });
+      const leave = () => {
+        if (link.getAttribute('aria-current') !== 'page') gsap.to(underline, { scaleX: 0, duration: 0.25, ease: 'power2.out' });
+      };
+      link.addEventListener('mouseenter', enter);
+      link.addEventListener('mouseleave', leave);
+      return () => {
+        link.removeEventListener('mouseenter', enter);
+        link.removeEventListener('mouseleave', leave);
+      };
+    });
+  }, { dependencies: [pathname, isTransparent], scope: navRef });
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -21,8 +45,6 @@ export function Header() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const isTransparent = isHome && !scrolled;
 
   return (
     <header
@@ -55,34 +77,35 @@ export function Header() {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-1 lg:flex">
+        <nav ref={navRef} className="hidden items-center gap-1 lg:flex">
           {navLinks.map((link) => {
             const active = pathname === link.href;
             return (
               <Link
                 key={link.href}
                 href={link.href}
+                aria-current={active ? 'page' : undefined}
+                data-nav-link
                 className={cn(
-                  'relative px-4 py-2 text-sm font-medium transition-colors duration-150 after:absolute after:bottom-1 after:left-4 after:right-4 after:h-px after:bg-current after:transition-all after:duration-200',
+                  'relative px-4 py-2 text-sm font-medium transition-colors duration-150',
                   active
-                    ? isTransparent
-                      ? 'text-primary after:scale-x-100'
-                      : 'text-primary after:scale-x-100'
+                    ? 'text-primary-foreground'
                     : isTransparent
-                      ? 'text-primary-foreground/85 hover:text-primary-foreground after:scale-x-0 hover:after:scale-x-100'
-                      : 'text-foreground/80 hover:text-primary after:scale-x-0 hover:after:scale-x-100'
+                      ? 'text-primary-foreground/85 hover:text-primary-foreground'
+                      : 'text-primary-foreground/85 hover:text-primary-foreground'
                 )}
               >
                 {link.label}
+                <span data-nav-underline aria-hidden="true" className={cn('absolute bottom-1 left-4 right-4 h-px origin-left scale-x-0 bg-current', active && 'scale-x-100')} />
               </Link>
             );
           })}
         </nav>
 
         <div className="hidden lg:block">
-          <Button asChild size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90">
+          <MagneticButton asChild size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90">
             <Link href="/contact">Free Consultation</Link>
-          </Button>
+          </MagneticButton>
         </div>
 
         {/* Mobile menu */}
@@ -122,8 +145,8 @@ export function Header() {
                     className={cn(
                       'min-h-12 px-4 py-3.5 text-sm font-medium transition-colors',
                       active
-                        ? 'bg-primary/10 text-primary'
-                        : 'text-foreground/80 hover:bg-muted hover:text-primary'
+                        ? 'bg-primary-foreground/10 text-primary-foreground'
+                        : 'text-primary-foreground/85 hover:bg-primary-foreground/10 hover:text-primary-foreground'
                     )}
                   >
                     {link.label}

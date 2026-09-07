@@ -3,7 +3,7 @@
 import { useGSAP } from '@gsap/react';
 import { usePathname } from 'next/navigation';
 import { useRef } from 'react';
-import { gsap } from '@/lib/gsap';
+import { gsap, ScrollTrigger } from '@/lib/gsap';
 
 export function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -15,6 +15,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
     media.add('not all and (prefers-reduced-motion: reduce)', () => {
       gsap.fromTo(ref.current, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' });
     });
+    gsap.delayedCall(0, () => ScrollTrigger.refresh());
     return () => media.revert();
   }, { dependencies: [pathname], revertOnUpdate: true, scope: ref });
 
