@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import {
   ArrowRight,
   Phone,
@@ -42,36 +41,28 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-primary/40 dark:from-background dark:via-background/95 dark:to-background/40" />
         <div className="relative mx-auto w-full max-w-7xl px-4 pt-32 pb-16 md:px-8">
           <div className="max-w-3xl">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.05, ease: [0.25, 0.46, 0.45, 0.94] }}
+            <FadeIn
+              delay={0.05}
               className="mb-6 text-xs font-bold uppercase tracking-[0.14em] text-primary"
             >
               Welcome to H&B Legal and Consultant
-            </motion.div>
-            <motion.h1
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
+            </FadeIn>
+            <FadeIn
+              delay={0.15}
               className="font-display text-3xl font-bold leading-[1.08] text-balance sm:text-4xl md:text-6xl lg:text-[clamp(2.5rem,5vw,4rem)]"
             >
               Attorneys Fighting For Your <span className="text-primary">Justice</span>
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+            </FadeIn>
+            <FadeIn
+              delay={0.25}
               className="mt-6 max-w-2xl text-base leading-relaxed text-primary-foreground/75 sm:text-lg md:text-xl"
             >
               A full-service boutique law firm helping clients nationwide secure relief
               from wrongful denials, with representation before District Courts,
               Tribunals, High Courts, and the Supreme Court of India.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+            </FadeIn>
+            <FadeIn
+              delay={0.35}
               className="mt-8 flex flex-col gap-3 sm:flex-row"
             >
               <Button asChild size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 sm:w-auto">
@@ -88,25 +79,16 @@ export default function Home() {
               >
                 <Link href="/services">Our Services</Link>
               </Button>
-            </motion.div>
+            </FadeIn>
           </div>
         </div>
 
         {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
           <div className="flex h-10 w-6 items-start justify-center rounded-full border border-primary-foreground/30 p-1.5">
-            <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ repeat: Infinity, duration: 1.5 }}
-              className="h-1.5 w-1 rounded-full bg-primary"
-            />
+            <div className="h-1.5 w-1 animate-bounce rounded-full bg-primary" />
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* ===== TRUST STATS ===== */}

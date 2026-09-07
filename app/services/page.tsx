@@ -1,10 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import * as Icons from 'lucide-react';
 import { PageHero } from '@/components/shared/PageHero';
 import { ServiceCard } from '@/components/shared/ServiceCard';
-import { FadeIn, StaggerGroup } from '@/components/shared/Animations';
+import { FadeIn, StaggerGroup, StaggerItem } from '@/components/shared/Animations';
 import { services, practiceAreas } from '@/lib/data';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import { faqs } from '@/lib/data';
@@ -60,16 +59,8 @@ export default function ServicesPage() {
             {practiceAreas.map((area) => {
               const Icon = (Icons[area.icon as IconName] ?? Icons.Briefcase) as Icons.LucideIcon;
               return (
-                <motion.div
+                <StaggerItem
                   key={area.title}
-                  variants={{
-                    hidden: { opacity: 0, y: 16 },
-                    visible: {
-                      opacity: 1,
-                      y: 0,
-                      transition: { duration: 0.4 },
-                    },
-                  }}
                   className="group flex items-center gap-3 border border-border bg-card p-4 transition-colors hover:border-primary"
                 >
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center border border-border bg-background text-primary">
@@ -78,7 +69,7 @@ export default function ServicesPage() {
                   <span className="font-medium text-foreground transition-colors group-hover:text-primary">
                     {area.title}
                   </span>
-                </motion.div>
+                </StaggerItem>
               );
             })}
           </StaggerGroup>

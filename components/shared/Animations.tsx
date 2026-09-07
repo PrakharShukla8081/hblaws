@@ -1,32 +1,8 @@
 'use client';
 
-import { motion, useReducedMotion, type Variants } from 'framer-motion';
-import { type ReactNode } from 'react';
-
-export const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
-  },
-};
-
-export const fadeIn: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { duration: 0.6 },
-  },
-};
-
-export const staggerContainer: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.12 },
-  },
-};
+import { useGSAP } from '@gsap/react';
+import { type ReactNode, useRef } from 'react';
+import { gsap } from '@/lib/gsap';
 
 export function FadeIn({
   children,
@@ -37,18 +13,30 @@ export function FadeIn({
   delay?: number;
   className?: string;
 }) {
-  const reducedMotion = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const media = gsap.matchMedia();
+    media.add('(prefers-reduced-motion: reduce)', () => {
+      gsap.set(ref.current, { opacity: 1, y: 0 });
+    });
+    media.add('not all and (prefers-reduced-motion: reduce)', () => {
+      gsap.fromTo(ref.current, { opacity: 0, y: 24 }, {
+        opacity: 1,
+        y: 0,
+        delay,
+        duration: 0.5,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: ref.current, start: 'top 85%', once: true },
+      });
+    });
+    return () => media.revert();
+  }, { dependencies: [delay], scope: ref });
 
   return (
-    <motion.div
-      initial={reducedMotion ? false : { opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: reducedMotion ? 0 : 0.5, delay: reducedMotion ? 0 : delay, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className={className}
-    >
+    <div ref={ref} className={className}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -59,22 +47,31 @@ export function StaggerGroup({
   children: ReactNode;
   className?: string;
 }) {
-  const reducedMotion = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const media = gsap.matchMedia();
+    const items = ref.current?.querySelectorAll('[data-stagger-item]').length
+      ? ref.current.querySelectorAll('[data-stagger-item]')
+      : ref.current?.children ?? [];
+    media.add('(prefers-reduced-motion: reduce)', () => gsap.set(items, { opacity: 1, y: 0 }));
+    media.add('not all and (prefers-reduced-motion: reduce)', () => {
+      gsap.fromTo(items, { opacity: 0, y: 24 }, {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        ease: 'power2.out',
+        stagger: 0.08,
+        scrollTrigger: { trigger: ref.current, start: 'top 85%', once: true },
+      });
+    });
+    return () => media.revert();
+  }, { scope: ref });
 
   return (
-    <motion.div
-      variants={
-        reducedMotion
-          ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
-          : staggerContainer
-      }
-      initial={reducedMotion ? false : 'hidden'}
-      whileInView={reducedMotion ? undefined : 'visible'}
-      viewport={{ once: true, margin: '-50px' }}
-      className={className}
-    >
+    <div ref={ref} className={className}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -85,18 +82,9 @@ export function StaggerItem({
   children: ReactNode;
   className?: string;
 }) {
-  const reducedMotion = useReducedMotion();
-
   return (
-    <motion.div
-      variants={
-        reducedMotion
-          ? { hidden: { opacity: 1, y: 0 }, visible: { opacity: 1, y: 0 } }
-          : fadeInUp
-      }
-      className={className}
-    >
+    <div data-stagger-item className={className}>
       {children}
-    </motion.div>
+    </div>
   );
 }

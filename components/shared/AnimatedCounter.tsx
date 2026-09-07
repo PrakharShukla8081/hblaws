@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { useInView, useReducedMotion } from 'framer-motion';
+import { useGSAP } from '@gsap/react';
+import { useRef } from 'react';
+import { gsap } from '@/lib/gsap';
 
 export function AnimatedCounter({
   value,
@@ -11,38 +12,24 @@ export function AnimatedCounter({
   suffix?: string;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
-  const reducedMotion = useReducedMotion();
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (reducedMotion) {
-      setCount(value);
-      return;
-    }
-
-    if (!isInView) return;
-
-    let frame = 0;
-    const start = performance.now();
-    const duration = 1200;
-
-    const update = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const easedProgress = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.round(value * easedProgress));
-
-      if (progress < 1) frame = requestAnimationFrame(update);
+  useGSAP(() => {
+    const media = gsap.matchMedia();
+    const updateText = (count: number) => {
+      if (ref.current) ref.current.textContent = `${Math.round(count)}${suffix}`;
     };
+    media.add('(prefers-reduced-motion: reduce)', () => updateText(value));
+    media.add('not all and (prefers-reduced-motion: reduce)', () => {
+      const counter = { value: 0 };
+      gsap.to(counter, {
+        value,
+        duration: 1.2,
+        ease: 'power2.out',
+        onUpdate: () => updateText(counter.value),
+        scrollTrigger: { trigger: ref.current, start: 'top 85%', once: true },
+      });
+    });
+    return () => media.revert();
+  }, { dependencies: [suffix, value], scope: ref });
 
-    frame = requestAnimationFrame(update);
-    return () => cancelAnimationFrame(frame);
-  }, [isInView, reducedMotion, value]);
-
-  return (
-    <span ref={ref}>
-      {count}
-      {suffix}
-    </span>
-  );
+  return <span ref={ref}>0{suffix}</span>;
 }

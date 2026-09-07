@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Building2, Target, Gavel, CheckCircle2, Scale } from 'lucide-react';
 import { PageHero } from '@/components/shared/PageHero';
 import { FadeIn } from '@/components/shared/Animations';
@@ -73,11 +72,7 @@ export default function InformationsPage() {
 
             {/* The Firm */}
             <TabsContent value="firm" className="mt-8">
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-              >
+              <FadeIn>
                 <Card className="border-border/60">
                   <CardContent className="p-5 md:p-8">
                     <h3 className="font-display text-2xl font-bold text-primary">
@@ -121,16 +116,12 @@ export default function InformationsPage() {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </FadeIn>
             </TabsContent>
 
             {/* Approach & Goals */}
             <TabsContent value="approach" className="mt-8">
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-              >
+              <FadeIn>
                 <Card className="border-border/60">
                   <CardContent className="p-5 md:p-8">
                     <h3 className="font-display text-2xl font-bold text-primary">
@@ -175,16 +166,12 @@ export default function InformationsPage() {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </FadeIn>
             </TabsContent>
 
             {/* Litigation & Dispute */}
             <TabsContent value="litigation" className="mt-8">
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-              >
+              <FadeIn>
                 <Card className="border-border/60">
                   <CardContent className="p-5 md:p-8">
                     <h3 className="font-display text-2xl font-bold text-primary">
@@ -231,7 +218,7 @@ export default function InformationsPage() {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </FadeIn>
             </TabsContent>
           </Tabs>
         </div>
