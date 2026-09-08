@@ -1,34 +1,54 @@
 'use client';
 
 import Link from 'next/link';
+import { useRef } from 'react';
 import {
   ArrowRight,
   Phone,
   Mail,
-  Scale,
-  Gavel,
-  ShieldCheck,
   Briefcase,
   ShieldAlert,
   Handshake,
-  CheckCircle2,
 } from 'lucide-react';
+
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+
 import { ServiceCard } from '@/components/shared/ServiceCard';
 import { ContactForm } from '@/components/shared/ContactForm';
-import { FadeIn, StaggerGroup, StaggerItem } from '@/components/shared/Animations';
-import { services, stats, whySelectUs, contactEmail } from '@/lib/data';
+
+import {
+  FadeIn,
+  StaggerGroup,
+  StaggerItem,
+} from '@/components/shared/Animations';
+
+import {
+  services,
+  stats,
+  whySelectUs,
+  contactEmail,
+} from '@/lib/data';
+
 import { SectionLabel } from '@/components/shared/SectionLabel';
 import { AnimatedCounter } from '@/components/shared/AnimatedCounter';
+
 import { useGSAP } from '@gsap/react';
-import { useRef } from 'react';
 import { gsap } from '@/lib/gsap';
+
 import { SplitHeading } from '@/components/shared/SplitHeading';
 import { ImageReveal } from '@/components/shared/ImageReveal';
 import { MagneticButton } from '@/components/shared/MagneticButton';
 
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+const iconMap: Record<
+  string,
+  React.ComponentType<{ className?: string }>
+> = {
   Briefcase,
   ShieldAlert,
   Handshake,
@@ -38,263 +58,395 @@ export default function Home() {
   const heroRef = useRef<HTMLElement>(null);
   const heroImageRef = useRef<HTMLImageElement>(null);
 
-  useGSAP(() => {
-    const media = gsap.matchMedia();
-    media.add('(prefers-reduced-motion: reduce)', () => gsap.set(heroImageRef.current, { yPercent: 0 }));
-    media.add('not all and (prefers-reduced-motion: reduce)', () => {
-      gsap.to(heroImageRef.current, {
-        yPercent: 16,
-        ease: 'none',
-        scrollTrigger: { trigger: heroRef.current, start: 'top top', end: 'bottom top', scrub: true },
-      });
-    });
-    return () => media.revert();
-  }, { scope: heroRef });
+  useGSAP(
+    () => {
+      const media = gsap.matchMedia();
+
+      media.add(
+        '(prefers-reduced-motion: reduce)',
+        () => {
+          gsap.set(heroImageRef.current, {
+            yPercent: 0,
+          });
+        }
+      );
+
+      media.add(
+        'not all and (prefers-reduced-motion: reduce)',
+        () => {
+          gsap.to(heroImageRef.current, {
+            yPercent: 16,
+            ease: 'none',
+
+            scrollTrigger: {
+              trigger: heroRef.current,
+              start: 'top top',
+              end: 'bottom top',
+              scrub: true,
+            },
+          });
+        }
+      );
+
+      return () => media.revert();
+    },
+    {
+      scope: heroRef,
+    }
+  );
 
   return (
     <>
       {/* ===== HERO ===== */}
-      <section ref={heroRef} className="relative flex min-h-[100svh] items-center overflow-hidden bg-primary text-primary-foreground dark:bg-background">
+
+      <section
+        ref={heroRef}
+        className="relative flex min-h-[100svh] items-center overflow-hidden bg-primary text-primary-foreground dark:bg-background"
+      >
         <img
           ref={heroImageRef}
           src="https://images.pexels.com/photos/6077296/pexels-photo-6077296.jpeg?auto=compress&cs=tinysrgb&w=1920"
           alt="Scales of justice in a law library"
           className="absolute inset-0 h-full w-full object-cover opacity-45"
         />
+
         <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-primary/40 dark:from-background dark:via-background/95 dark:to-background/40" />
-        <div className="relative mx-auto w-full max-w-7xl px-4 pt-32 pb-16 md:px-8">
+
+        <div className="relative mx-auto w-full max-w-7xl px-4 pb-16 pt-32 md:px-8">
           <div className="max-w-3xl">
+
             <FadeIn
               delay={0.05}
-              className="mb-6 text-xs font-bold uppercase tracking-[0.14em] text-primary"
+              className="mb-6 text-xs font-bold uppercase tracking-[0.14em] text-accent"
             >
               Welcome to H&B Legal and Consultant
             </FadeIn>
-            <SplitHeading highlight="Justice" className="font-display text-3xl font-bold leading-[1.08] text-balance sm:text-4xl md:text-6xl lg:text-[clamp(2.5rem,5vw,4rem)]">
+
+            <SplitHeading
+              highlight="Justice"
+              className="font-display text-3xl font-bold leading-[1.08] text-balance sm:text-4xl md:text-6xl lg:text-[clamp(2.5rem,5vw,4rem)]"
+            >
               Attorneys Fighting For Your Justice
             </SplitHeading>
+
             <FadeIn
               delay={0.25}
               className="mt-6 max-w-2xl text-base leading-relaxed text-primary-foreground/75 sm:text-lg md:text-xl"
             >
-              A full-service boutique law firm helping clients nationwide secure relief
-              from wrongful denials, with representation before District Courts,
-              Tribunals, High Courts, and the Supreme Court of India.
+              A full-service boutique law firm helping clients nationwide secure
+              relief from wrongful denials, with representation before District
+              Courts, Tribunals, High Courts, and the Supreme Court of India.
             </FadeIn>
+
             <FadeIn
               delay={0.35}
               className="mt-8 flex flex-col gap-3 sm:flex-row"
             >
-              <MagneticButton asChild size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 sm:w-auto">
+              <MagneticButton
+                asChild
+                size="lg"
+                className="w-full bg-accent text-accent-foreground hover:bg-accent/90 sm:w-auto"
+              >
                 <Link href="/contact">
                   Free Consultation
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </MagneticButton>
+
               <Button
                 asChild
                 size="lg"
                 variant="outline"
                 className="w-full border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground sm:w-auto"
               >
-                <Link href="/services">Our Services</Link>
+                <Link href="/services">
+                  Our Services
+                </Link>
               </Button>
             </FadeIn>
+
           </div>
         </div>
 
-        {/* Scroll indicator */}
+        {/* Scroll Indicator */}
+
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
           <div className="flex h-10 w-6 items-start justify-center rounded-full border border-primary-foreground/30 p-1.5">
-            <div className="h-1.5 w-1 animate-bounce rounded-full bg-primary" />
+            <div className="h-1.5 w-1 animate-bounce rounded-full bg-accent" />
           </div>
         </div>
       </section>
 
       {/* ===== TRUST STATS ===== */}
+
       <section className="border-b border-primary-foreground/20 bg-primary text-primary-foreground">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
+
           <StaggerGroup className="grid grid-cols-2 divide-x divide-primary-foreground/20 lg:grid-cols-3">
+
             {stats.slice(0, 3).map((stat) => (
-              <StaggerItem key={stat.label} className="px-4 py-8 text-center md:py-10">
+              <StaggerItem
+                key={stat.label}
+                className="px-4 py-8 text-center md:py-10"
+              >
                 <p className="font-display text-3xl font-bold text-accent md:text-4xl">
                   <AnimatedCounter
                     value={parseInt(stat.value, 10)}
                     suffix={stat.value.replace(/[0-9]/g, '')}
                   />
                 </p>
+
                 <p className="mt-1 text-xs uppercase tracking-wider text-primary-foreground/70 md:text-sm">
                   {stat.label}
                 </p>
               </StaggerItem>
             ))}
+
           </StaggerGroup>
+
         </div>
       </section>
 
       {/* ===== WHY SELECT US ===== */}
+
       <section className="section-pad">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
+
           <FadeIn className="mx-auto max-w-2xl text-center">
             <SectionLabel number="01" label="WHY H&B" />
+
             <h2 className="font-display text-3xl font-bold text-primary md:text-4xl">
               Why Select Us
             </h2>
+
             <p className="mt-3 text-muted-foreground">
-              With substantive legal expertise across disciplines, sectors, and industries,
-              we offer clients a single-point solution.
+              With substantive legal expertise across disciplines, sectors, and
+              industries, we offer clients a single-point solution.
             </p>
           </FadeIn>
 
           <StaggerGroup className="mt-12 grid gap-6 md:grid-cols-3">
+
             {whySelectUs.map((item) => {
-              const Icon = iconMap[item.icon] ?? Briefcase;
+              const Icon =
+                iconMap[item.icon] ?? Briefcase;
+
               return (
                 <StaggerItem key={item.title}>
+
                   <Card className="group h-full border-border transition-colors hover:border-primary">
+
                     <CardHeader>
+
                       <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-lg bg-primary text-primary-foreground">
                         <Icon className="h-7 w-7" />
                       </div>
+
                       <CardTitle className="font-display text-lg text-primary">
                         {item.title}
                       </CardTitle>
+
                     </CardHeader>
+
                     <CardContent>
                       <p className="text-sm leading-relaxed text-muted-foreground">
                         {item.description}
                       </p>
                     </CardContent>
+
                   </Card>
+
                 </StaggerItem>
               );
             })}
+
           </StaggerGroup>
+
         </div>
       </section>
 
-      {/* ===== SERVICES PREVIEW ===== */}
+      {/* ===== SERVICES ===== */}
+
       <section className="section-pad bg-secondary/50">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
+
           <FadeIn className="flex flex-col items-center justify-between gap-4 md:flex-row md:items-end">
+
             <div className="max-w-2xl">
-              <SectionLabel number="02" label="PRACTICE AREAS" />
+
+              <SectionLabel
+                number="02"
+                label="PRACTICE AREAS"
+              />
+
               <h2 className="font-display text-3xl font-bold text-primary md:text-4xl">
                 Our Practice Sectors
               </h2>
+
               <p className="mt-3 text-muted-foreground">
-                Providing comprehensive legal services across diverse industries and
-                practice areas.
+                Providing comprehensive legal services across diverse industries
+                and practice areas.
               </p>
+
             </div>
-            <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+
+            <Button
+              asChild
+              variant="outline"
+              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+            >
               <Link href="/services">
                 View All Services
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
+
           </FadeIn>
 
           <StaggerGroup className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
             {services.slice(0, 6).map((service) => (
-              <ServiceCard key={service.slug} service={service} href="/services" />
+              <ServiceCard
+                key={service.slug}
+                service={service}
+                href="/services"
+              />
             ))}
+
           </StaggerGroup>
+
         </div>
       </section>
 
       {/* ===== EDITORIAL IMAGES ===== */}
+
       <section className="section-pad border-t border-border">
+
         <div className="mx-auto max-w-7xl px-4 md:px-8">
-          <SectionLabel number="03" label="THE PRACTICE" />
+
+          <SectionLabel
+            number="03"
+            label="THE PRACTICE"
+          />
+
           <div className="grid items-end gap-8 md:grid-cols-[1.35fr_0.8fr]">
+
             <figure>
+
               <ImageReveal className="rounded-xl">
+
                 <div className="flex aspect-[4/3] items-center justify-center rounded-xl border border-dashed border-muted-foreground bg-muted p-6 text-center text-xs uppercase tracking-wider text-muted-foreground shadow-sm">
-                Add home-1.jpg to public/images/
+                  Add home-1.jpg to public/images/
                 </div>
+
               </ImageReveal>
+
               <figcaption className="mt-3 text-xs font-bold uppercase tracking-[0.14em] text-primary">
-                Delhi · Principal office
+                Delhi · Principal Office
               </figcaption>
+
             </figure>
+
             <figure className="md:mb-12">
+
               <ImageReveal className="rounded-xl">
+
                 <div className="flex aspect-[4/3] items-center justify-center rounded-xl border border-dashed border-muted-foreground bg-muted p-6 text-center text-xs uppercase tracking-wider text-muted-foreground shadow-sm">
-                Add home-2.jpg to public/images/
+                  Add home-2.jpg to public/images/
                 </div>
+
               </ImageReveal>
+
               <figcaption className="mt-3 text-xs font-bold uppercase tracking-[0.14em] text-primary">
-                Counsel · At work
+                Counsel · At Work
               </figcaption>
+
             </figure>
+
           </div>
+
         </div>
       </section>
 
-      {/* ===== CTA BANNER ===== */}
+      {/* ===== CONTACT ===== */}
+
       <section className="relative overflow-hidden bg-primary py-20 text-primary-foreground dark:bg-background md:py-28">
+
         <div className="relative mx-auto max-w-7xl px-4 md:px-8">
+
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-            {/* Left: text + contact info */}
+
+            {/* LEFT */}
+
             <FadeIn>
-              <SectionLabel number="03" label="CONTACT" />
-              <h2 className="font-display text-3xl font-bold md:text-4xl text-balance">
+
+              <SectionLabel
+                number="04"
+                label="CONTACT"
+                tone="dark"
+              />
+
+              <h2 className="font-display text-3xl font-bold text-balance md:text-4xl">
                 Have Questions? Reach out via the form, call, or email us.
               </h2>
+
               <p className="mt-4 text-lg text-primary-foreground/75">
-                Our team is ready to help you navigate your legal challenges with
-                expertise and dedication.
+                Our team is ready to help you navigate your legal challenges
+                with expertise and dedication.
               </p>
+
               <div className="mt-8 space-y-4">
+
                 <a
                   href="tel:+919555549457"
                   className="flex items-center gap-3 text-primary-foreground transition-colors hover:text-accent"
                 >
+
                   <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-primary-foreground/20 bg-primary-foreground/10">
                     <Phone className="h-5 w-5 text-accent" />
                   </span>
-                  <span className="text-lg">+91 9555549457</span>
+
+                  <span className="text-lg">
+                    +91 9555549457
+                  </span>
+
                 </a>
+
                 <a
                   href={`mailto:${contactEmail}`}
                   className="flex items-center gap-3 text-primary-foreground transition-colors hover:text-accent"
                 >
+
                   <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-primary-foreground/20 bg-primary-foreground/10">
                     <Mail className="h-5 w-5 text-accent" />
                   </span>
-                  <span className="text-lg">{contactEmail}</span>
+
+                  <span className="text-lg">
+                    {contactEmail}
+                  </span>
+
                 </a>
+
               </div>
-              <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
-                {['District Courts', 'High Courts', 'Tribunals', 'Supreme Court'].map(
-                  (court) => (
-                    <span
-                      key={court}
-                      className="flex items-center gap-1.5 text-sm text-primary-foreground/60"
-                    >
-                      <CheckCircle2 className="h-4 w-4 text-accent" />
-                      {court}
-                    </span>
-                  )
-                )}
-              </div>
+
             </FadeIn>
 
-            {/* Right: mini contact form */}
-            <FadeIn delay={0.15}>
-                <Card className="border-border">
-                <CardContent className="p-5 md:p-8">
-                  <h3 className="mb-5 font-display text-xl font-bold text-primary">
-                    Send us a message
-                  </h3>
-                  <ContactForm />
-                </CardContent>
-              </Card>
+            {/* RIGHT */}
+
+            <FadeIn delay={0.2}>
+
+              <div className="rounded-2xl bg-background p-6 text-foreground shadow-xl md:p-8">
+                <ContactForm />
+              </div>
+
             </FadeIn>
+
           </div>
+
         </div>
+
       </section>
+
     </>
   );
 }

@@ -31,7 +31,7 @@ export function PageHero({
     <section className="relative flex items-center overflow-hidden bg-primary pt-28 pb-14 text-primary-foreground sm:pt-32 sm:pb-16 md:pt-40 md:pb-20 dark:bg-background">
       <div className="relative mx-auto max-w-7xl px-4 md:px-8">
         <div ref={ref}>
-          <div data-hero-item className="mb-5 text-xs font-bold uppercase tracking-[0.14em] text-primary">H&B LEGAL AND CONSULTANT</div>
+          <div data-hero-item className="mb-5 text-xs font-bold uppercase tracking-[0.14em] text-accent">H&B LEGAL AND CONSULTANT</div>
           <SplitHeading className="font-display text-3xl font-bold sm:text-4xl md:text-5xl lg:text-6xl">
             {title}
           </SplitHeading>
