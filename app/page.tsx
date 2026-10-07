@@ -330,7 +330,7 @@ export default function Home() {
               <ServiceCard
                 key={service.slug}
                 service={service}
-                href="/sectors"
+                href={`/sectors/${service.slug}`}
               />
             ))}
 

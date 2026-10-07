@@ -1,13 +1,14 @@
 'use client';
 
-import { MapPin, Phone, Mail, Clock, Building } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Building, MessageCircle, Navigation } from 'lucide-react';
 import { PageHero } from '@/components/shared/PageHero';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { FadeIn, StaggerGroup, StaggerItem } from '@/components/shared/Animations';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
-import { offices, contactEmail, businessHours, faqs } from '@/lib/data';
+import { offices, contactEmail, businessHours, faqs, whatsappNumber } from '@/lib/data';
 import { SectionLabel } from '@/components/shared/SectionLabel';
+import { OpenStatus } from '@/components/shared/OpenStatus';
 
 export default function ContactPage() {
   return (
@@ -59,6 +60,20 @@ export default function ContactPage() {
                       </div>
                     </a>
                     <a
+                      href={`https://wa.me/${whatsappNumber}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 transition-colors hover:text-accent"
+                    >
+                      <span className="flex h-10 w-10 items-center justify-center border border-border bg-muted">
+                        <MessageCircle className="h-5 w-5 text-primary" />
+                      </span>
+                      <div>
+                        <p className="text-xs text-muted-foreground">WhatsApp</p>
+                        <p className="text-sm font-medium text-foreground">Chat with us</p>
+                      </div>
+                    </a>
+                    <a
                       href={`mailto:${contactEmail}`}
                       className="flex items-center gap-3 transition-colors hover:text-accent"
                     >
@@ -80,6 +95,7 @@ export default function ContactPage() {
                       <Clock className="h-5 w-5 text-accent" />
                       Business Hours
                     </CardTitle>
+                    <OpenStatus className="mt-2" />
                   </CardHeader>
                   <CardContent className="space-y-3">
                     {businessHours.map((item) => (
@@ -150,6 +166,17 @@ export default function ContactPage() {
                           {phone}
                         </a>
                       ))}
+                      <a
+                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                          office.mapQuery
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 font-medium text-primary transition-colors hover:text-accent"
+                      >
+                        <Navigation className="h-4 w-4 shrink-0 text-accent" />
+                        Get Directions
+                      </a>
                     </div>
                   </CardContent>
                 </Card>

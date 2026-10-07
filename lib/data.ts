@@ -11,6 +11,7 @@ export type PracticeArea = {
 };
 
 export type Associate = {
+  slug: string;
   name: string;
   title: string;
   bio: string;
@@ -139,72 +140,84 @@ export const practiceAreas: PracticeArea[] = [
 
 export const associates: Associate[] = [
   {
+    slug: 'bhoopesh-panday',
     name: 'Bhoopesh Panday',
     title: 'Founding Partner',
     bio: 'Core expertise in criminal litigation including serious fraud matters; advises on public policy and government schemes; member of SCBA, DHCBA and other Bar associations.',
     initials: 'BP',
   },
   {
+    slug: 'vinod-kumar-tiwari',
     name: 'Dr. Vinod Kumar Tiwari',
     title: 'Senior Partner',
     bio: '30+ years in legal practice; Advocate-on-Record, Supreme Court of India; appeared in 2000+ Supreme Court cases; regularly appears before Delhi HC and Allahabad HC.',
     initials: 'VT',
   },
   {
+    slug: 'savitri-pandey',
     name: 'Savitri Pandey',
     title: 'Senior Partner',
     bio: '20+ years in civil & commercial litigation since 1994; panel counsel for Government of India & UP before the Supreme Court; senior standing counsel for NBCC and Food Corporation of India.',
     initials: 'SP',
   },
   {
+    slug: 'harshita-pandey',
     name: 'Harshita Pandey',
     title: 'Partner',
     bio: 'Founding & managing partner; focuses on domestic/international trade, investment transactions, and corporate regulatory compliance.',
     initials: 'HP',
   },
   {
+    slug: 'yashveer-sangwan',
     name: 'Yashveer Sangwan',
     title: 'Associate Partner',
     bio: 'Expertise in international trade and business; has worked with lawmakers/parliamentarians on policy formulation; advises firms on securing funding.',
     initials: 'YS',
   },
   {
+    slug: 'abhinav-deshwal',
     name: 'Abhinav Deshwal',
     title: 'Senior Associate',
     bio: 'Graduate, O.P. Jindal Global University; member, Supreme Court & High Court Bar Association; assisted senior counsels in high-profile matters including the Ayodhya matter.',
     initials: 'AD',
   },
   {
+    slug: 'kanishk',
     name: 'Kanishk',
     title: 'Senior Associate',
     bio: 'Graduate, RMNLU Lucknow; expertise in criminal, matrimonial, and consumer disputes; practices before the Supreme Court, High Courts, District Courts, and Tribunals.',
     initials: 'K',
   },
   {
+    slug: 'kirti-ranjan',
     name: 'Kirti Ranjan',
     title: 'Associate',
     bio: 'Expertise in civil & commercial disputes and IP matters; registered trademark attorney; handles patent, trademark, copyright, and design registrations.',
     initials: 'KR',
   },
   {
+    slug: 'priyanka-tomar',
     name: 'Priyanka Tomar',
     title: 'Associate',
     bio: 'Graduate, Dr. Ram Manohar Lohiya National Law University, Lucknow (2015); practices criminal, civil, matrimonial, consumer, DRT, electricity court and finance-related matters before the High Court, all District Courts, National Commission, District Forums, NCLT, NCLAT, APMLA and other tribunals.',
     initials: 'PT',
   },
   {
+    slug: 'mayank-punia',
     name: 'Mayank Punia',
     title: 'Associate',
     bio: 'Graduate, Dr. Ram Manohar Lohiya National Law University, Lucknow (2016); practices criminal, civil, matrimonial, consumer and finance-related matters before the Supreme Court of India, High Courts, all District Courts, National Commission, DRT, NCLT, NCLAT, District Forums and other tribunals.',
     initials: 'MP',
   },
   {
+    slug: 'abhishek-singh',
     name: 'Abhishek Singh',
     title: 'Associate',
     bio: 'Graduate, Allahabad University (2015); practices criminal and civil matters before the Supreme Court of India, High Courts, all District Courts, NGT and CAT.',
     initials: 'AS',
   },
   {
+    slug: 'bhanupriya-singh',
     name: 'Bhanupriya Singh',
     title: 'Associate',
     bio: 'Graduate, Punjab University (2013); LLM, NUJS Kolkata (2015); practices criminal, civil, matrimonial, consumer, DRT, electricity court and finance-related matters before the High Court, all District Courts, National Commission, District Forums, NCLT, NCLAT, APMLA and other tribunals.',
@@ -266,6 +279,23 @@ export const offices: Office[] = [
 ];
 
 export const contactEmail = 'admin@hblaws.com';
+
+// WhatsApp number in international format, digits only (no + or spaces).
+// TODO: confirm with client that this number is on WhatsApp.
+export const whatsappNumber = '919555549457';
+
+// Opening hours used by the "Open now" indicator (Asia/Kolkata time).
+// Key = day of week (0 = Sunday ... 6 = Saturday), value = [openHour, closeHour] in 24h, or null if closed.
+// Keep in sync with businessHours below.
+export const weeklySchedule: Record<number, [number, number] | null> = {
+  0: null,
+  1: [9, 20],
+  2: [9, 20],
+  3: [9, 20],
+  4: [9, 20],
+  5: [9, 20],
+  6: [9, 17],
+};
 
 export const businessHours = [
   { day: 'Monday – Friday', hours: '9:00 AM – 8:00 PM' },

@@ -29,7 +29,11 @@ export default function SectorsPage() {
 
           <StaggerGroup className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((service) => (
-              <ServiceCard key={service.slug} service={service} />
+              <ServiceCard
+                key={service.slug}
+                service={service}
+                href={`/sectors/${service.slug}`}
+              />
             ))}
           </StaggerGroup>
         </div>

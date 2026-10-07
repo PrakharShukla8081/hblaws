@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Inter, Sora } from 'next/font/google';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { StickyContactBar } from '@/components/layout/StickyContactBar';
 import { CookieBanner } from '@/components/layout/CookieBanner';
 import { DisclaimerModal } from '@/components/layout/DisclaimerModal';
 import { ThemeProvider } from '@/components/shared/ThemeProvider';
@@ -64,7 +65,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-body antialiased">
+      <body className="font-body antialiased pb-14 md:pb-0">
         <MotionProvider>
           <SmoothScrollProvider>
             <ThemeProvider>
@@ -74,6 +75,7 @@ export default function RootLayout({
               <PageTransition>{children}</PageTransition>
             </main>
             <Footer />
+            <StickyContactBar />
             <ThemeSwitcher />
             <CookieBanner />
             <DisclaimerModal />
