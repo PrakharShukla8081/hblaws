@@ -142,11 +142,12 @@ export function Header() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
+                    aria-current={active ? 'page' : undefined}
                     className={cn(
-                      'min-h-12 px-4 py-3.5 text-sm font-medium transition-colors',
+                      'block min-h-12 rounded-md px-4 py-3.5 text-sm font-medium transition-colors',
                       active
-                        ? 'bg-primary-foreground/10 text-primary-foreground'
-                        : 'text-primary-foreground/85 hover:bg-primary-foreground/10 hover:text-primary-foreground'
+                        ? 'bg-primary text-primary-foreground'
+                        : 'text-foreground hover:bg-secondary hover:text-foreground'
                     )}
                   >
                     {link.label}
