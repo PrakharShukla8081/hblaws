@@ -159,7 +159,7 @@ export default function Home() {
                 variant="outline"
                 className="w-full border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground sm:w-auto"
               >
-                <Link href="/our-associates">
+                <Link href="/attorneys">
                   Our Attorneys
                 </Link>
               </Button>
@@ -170,7 +170,7 @@ export default function Home() {
                 variant="link"
                 className="w-full text-primary-foreground hover:text-accent sm:w-auto"
               >
-                <Link href="/services">
+                <Link href="/practice-areas">
                   Our Services
                 </Link>
               </Button>
@@ -297,11 +297,11 @@ export default function Home() {
 
               <SectionLabel
                 number="02"
-                label="PRACTICE AREAS"
+                label="SECTORS"
               />
 
               <h2 className="font-display text-3xl font-bold text-primary md:text-4xl">
-                Our Practice Sectors
+                Our Sectors
               </h2>
 
               <p className="mt-3 text-muted-foreground">
@@ -316,8 +316,8 @@ export default function Home() {
               variant="outline"
               className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
             >
-              <Link href="/services">
-                View All Services
+              <Link href="/sectors">
+                View All Sectors
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
@@ -330,7 +330,7 @@ export default function Home() {
               <ServiceCard
                 key={service.slug}
                 service={service}
-                href="/services"
+                href="/sectors"
               />
             ))}
 

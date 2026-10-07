@@ -275,11 +275,16 @@ export const businessHours = [
 
 export const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/informations', label: 'Informations' },
-  { href: '/services', label: 'Services' },
-  { href: '/our-associates', label: 'Our Associates' },
-  { href: '/accreditations', label: 'Accreditations' },
+  { href: '/about', label: 'About' },
+  { href: '/practice-areas', label: 'Practice Areas' },
+  { href: '/sectors', label: 'Sectors' },
+  { href: '/attorneys', label: 'Attorneys' },
   { href: '/contact', label: 'Contact' },
+];
+
+export const footerLinks = [
+  ...navLinks,
+  { href: '/accreditations', label: 'Accreditations' },
 ];
 
 export const whySelectUs = [

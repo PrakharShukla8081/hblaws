@@ -14,7 +14,7 @@ import {
   Instagram,
   ArrowRight,
 } from 'lucide-react';
-import { offices, practiceAreas, contactEmail, businessHours, navLinks } from '@/lib/data';
+import { offices, practiceAreas, contactEmail, businessHours, footerLinks } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from '@/hooks/use-toast';
@@ -102,7 +102,7 @@ export function Footer() {
             {practiceAreas.slice(0, 8).map((area) => (
               <li key={area.title}>
                 <Link
-                  href="/services"
+                  href="/practice-areas"
                   className="text-sm text-primary-foreground/70 transition-colors hover:text-accent"
                 >
                   {area.title}
@@ -118,7 +118,7 @@ export function Footer() {
             Quick Links
           </h4>
           <ul className="mt-4 space-y-2">
-            {navLinks.map((link) => (
+            {footerLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
@@ -182,5 +182,4 @@ export function Footer() {
       </div>
     </footer>
   );
-  
 }
