@@ -39,10 +39,10 @@ export function Footer() {
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-4 py-10 md:flex-row md:justify-between md:px-8">
           <div className="text-center md:text-left">
             <h3 className="font-display text-xl font-bold text-primary-foreground">
-              Stay informed on legal developments
+              Subscribe to our Newsletter
             </h3>
             <p className="mt-1 text-sm text-primary-foreground/70">
-              Subscribe to our newsletter for insights and updates.
+              Stay informed on legal developments and updates.
             </p>
           </div>
           <form onSubmit={handleSubscribe} className="flex w-full max-w-md gap-2">

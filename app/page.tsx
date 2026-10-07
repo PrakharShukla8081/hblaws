@@ -159,6 +159,17 @@ export default function Home() {
                 variant="outline"
                 className="w-full border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground sm:w-auto"
               >
+                <Link href="/our-associates">
+                  Our Attorneys
+                </Link>
+              </Button>
+
+              <Button
+                asChild
+                size="lg"
+                variant="link"
+                className="w-full text-primary-foreground hover:text-accent sm:w-auto"
+              >
                 <Link href="/services">
                   Our Services
                 </Link>
@@ -222,6 +233,16 @@ export default function Home() {
             <p className="mt-3 text-muted-foreground">
               With substantive legal expertise across disciplines, sectors, and
               industries, we offer clients a single-point solution.
+            </p>
+
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:text-base">
+              The firm handles matters before District Courts, Judicial and
+              Quasi-Judicial Forums, Tribunals, Commissions, High Courts and the
+              Supreme Court of India. We advise and assist clients in economic
+              offences, arbitration, service matters, tax, intellectual
+              property, constitutional matters, banking and finance, insurance,
+              real estate, debt recovery, oppression and mismanagement, and
+              other company law and insolvency related matters.
             </p>
           </FadeIn>
 

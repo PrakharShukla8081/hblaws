@@ -36,84 +36,84 @@ export const services: ServiceItem[] = [
     icon: 'Landmark',
     title: 'Banking & Financial Services',
     description:
-      'Comprehensive legal support for banks, NBFCs, and financial institutions across lending, recovery, and regulatory compliance.',
+      'An industry-recognised team offering personalised, effective approaches that align business objectives with the intricacies of the Indian regulatory landscape.',
   },
   {
     slug: 'construction-real-estate',
     icon: 'Building2',
     title: 'Construction & Real Estate',
     description:
-      'Advising developers, investors, and buyers on land acquisition, RERA compliance, construction contracts, and dispute resolution.',
+      'Assisting stakeholders on all aspects of Indian real estate projects, including financial investments, land sales, leasing, construction management, debt restructuring and litigation.',
   },
   {
     slug: 'insurance',
     icon: 'ShieldCheck',
     title: 'Insurance',
     description:
-      'Representation in insurance claims, policy disputes, and regulatory matters before tribunals and consumer forums.',
+      'Practical solutions and full compliance, backed by a clear understanding of the legal, transactional, regulatory and commercial issues affecting the Indian insurance industry.',
   },
   {
     slug: 'investment',
     icon: 'TrendingUp',
     title: 'Investment',
     description:
-      'Legal structuring and advisory for domestic and cross-border investments, joint ventures, and private equity transactions.',
+      'Expert guidance on Indian and international investments across jurisdictions and market cycles, with investment solutions tailored to specific needs.',
   },
   {
     slug: 'education',
     icon: 'GraduationCap',
     title: 'Education',
     description:
-      'Regulatory compliance and dispute resolution for educational institutions, universities, and ed-tech platforms.',
+      'Assisting education stakeholders with complex legal concerns, including investment structure, regulatory compliance, management strategies, litigation management, dispute resolution, due diligence, financial and tax needs, M&A, joint ventures and legal audits.',
   },
   {
     slug: 'power-resources',
     icon: 'Zap',
     title: 'Power and Resources',
     description:
-      'Sector-focused advisory on power projects, mining licenses, environmental clearances, and energy-sector litigation.',
+      'Tailored solutions across the power and resources space, including energy coverage, renewable energy technologies and stakeholder engagement.',
   },
   {
     slug: 'information-technology',
     icon: 'Cpu',
     title: 'Information Technology',
     description:
-      'Data protection compliance, IT contract negotiation, technology licensing, and cyber law advisory.',
+      'Comprehensive advisory from our Cyber Law and Information Technology professionals to help clients safeguard their digital assets.',
   },
   {
     slug: 'media-telecommunication',
     icon: 'Radio',
     title: 'Media & Telecommunication',
     description:
-      'Regulatory licensing, content compliance, broadcasting disputes, and telecom-sector advisory services.',
+      'Extensive experience and in-depth industry knowledge across both the regulatory and commercial sides of media and telecommunications.',
   },
   {
     slug: 'healthcare-pharmaceuticals',
     icon: 'HeartPulse',
     title: 'Healthcare & Pharmaceuticals',
     description:
-      'Drug licensing, clinical trial regulations, medical negligence defense, and pharmaceutical patent disputes.',
+      'Advising domestic and foreign clients on market entry, business development, financial investments and regulatory matters.',
   },
   {
     slug: 'ngo-self-help',
     icon: 'Users',
     title: 'NGO & Self Help Groups',
     description:
-      'Registration, compliance, foreign funding regulations, and governance advisory for non-profits and social enterprises.',
+      'Legal support for NGOs and self-help groups, including legal compliance, contract drafting, governance matters and dispute resolution.',
   },
   {
     slug: 'transportation-logistics',
     icon: 'Truck',
     title: 'Transportation & Logistics',
     description:
-      'Advisory on transport regulations, logistics contracts, customs disputes, and infrastructure project agreements.',
+      'Market insights and regulatory expertise in transportation and logistics operations, along with drafting and negotiation of transport and logistics contracts.',
   },
   {
     slug: 'travel-hospitality',
     icon: 'Plane',
     title: 'Travel & Hospitality',
     description:
-      'Licensing, regulatory compliance, guest liability matters, and franchise agreements for hotels and travel companies.',
+      'Legal services for travel and hospitality, covering management services, property development agreements, compliance with applicable laws and due diligence.',
   },
 ];
 
@@ -189,25 +189,25 @@ export const associates: Associate[] = [
   {
     name: 'Priyanka Tomar',
     title: 'Associate',
-    bio: 'Graduate, RMLNLU Lucknow (2015); practices criminal, civil, matrimonial, consumer, DRT, electricity court, and finance-related matters across High Court, District Courts, NCLT, NCLAT.',
+    bio: 'Graduate, Dr. Ram Manohar Lohiya National Law University, Lucknow (2015); practices criminal, civil, matrimonial, consumer, DRT, electricity court and finance-related matters before the High Court, all District Courts, National Commission, District Forums, NCLT, NCLAT, APMLA and other tribunals.',
     initials: 'PT',
   },
   {
     name: 'Mayank Punia',
     title: 'Associate',
-    bio: 'Graduate, RMLNLU Lucknow (2016); practices criminal, civil, matrimonial, consumer, and finance-related matters before the Supreme Court, High Courts, DRT, NCLT, NCLAT.',
+    bio: 'Graduate, Dr. Ram Manohar Lohiya National Law University, Lucknow (2016); practices criminal, civil, matrimonial, consumer and finance-related matters before the Supreme Court of India, High Courts, all District Courts, National Commission, DRT, NCLT, NCLAT, District Forums and other tribunals.',
     initials: 'MP',
   },
   {
     name: 'Abhishek Singh',
     title: 'Associate',
-    bio: 'Graduate, Allahabad University (2015); criminal and civil matters before the Supreme Court, High Courts, NGT, and CAT.',
+    bio: 'Graduate, Allahabad University (2015); practices criminal and civil matters before the Supreme Court of India, High Courts, all District Courts, NGT and CAT.',
     initials: 'AS',
   },
   {
     name: 'Bhanupriya Singh',
     title: 'Associate',
-    bio: 'Graduate, Punjab University (2013), LLM NUJS Kolkata (2015); criminal, civil, matrimonial, consumer, DRT, electricity, and finance-related matters.',
+    bio: 'Graduate, Punjab University (2013); LLM, NUJS Kolkata (2015); practices criminal, civil, matrimonial, consumer, DRT, electricity court and finance-related matters before the High Court, all District Courts, National Commission, District Forums, NCLT, NCLAT, APMLA and other tribunals.',
     initials: 'BS',
   },
 ];

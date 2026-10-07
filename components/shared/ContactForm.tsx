@@ -8,14 +8,21 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from '@/hooks/use-toast';
 
-export function ContactForm() {
+type ContactFormProps = {
+  showHeading?: boolean;
+};
+
+const emptyForm = {
+  name: '',
+  email: '',
+  phone: '',
+  subject: '',
+  message: '',
+};
+
+export function ContactForm({ showHeading = true }: ContactFormProps) {
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
-  });
+  const [form, setForm] = useState(emptyForm);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validate = () => {
@@ -26,11 +33,11 @@ export function ContactForm() {
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
       e.email = 'Please enter a valid email';
     }
-    if (!form.phone.trim()) {
-      e.phone = 'Phone is required';
-    } else if (!/^[\d\s+\-()]{10,15}$/.test(form.phone)) {
+    // Phone is optional, but if given it must look valid
+    if (form.phone.trim() && !/^[\d\s+\-()]{10,15}$/.test(form.phone)) {
       e.phone = 'Please enter a valid phone number';
     }
+    if (!form.subject.trim()) e.subject = 'Subject is required';
     if (!form.message.trim()) e.message = 'Message is required';
     setErrors(e);
     return Object.keys(e).length === 0;
@@ -48,7 +55,7 @@ export function ContactForm() {
       description: 'We will get back to you within 24 hours.',
     });
 
-    setForm({ name: '', email: '', phone: '', message: '' });
+    setForm(emptyForm);
     setLoading(false);
   };
 
@@ -59,9 +66,20 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+      {showHeading && (
+        <div className="mb-2">
+          <p className="text-xs font-bold uppercase tracking-[0.14em] text-accent">
+            Booking an Appointment
+          </p>
+          <h3 className="mt-1 font-display text-2xl font-bold text-primary">
+            Free Consultation
+          </h3>
+        </div>
+      )}
+
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="space-y-2">
-          <Label htmlFor="name">Full Name *</Label>
+          <Label htmlFor="name">Your Name *</Label>
           <Input
             id="name"
             value={form.name}
@@ -72,7 +90,22 @@ export function ContactForm() {
           {errors.name && <p className="text-xs text-destructive">{errors.name}</p>}
         </div>
         <div className="space-y-2">
-          <Label htmlFor="phone">Phone Number *</Label>
+          <Label htmlFor="email">Your Email *</Label>
+          <Input
+            id="email"
+            type="email"
+            value={form.email}
+            onChange={(e) => update('email', e.target.value)}
+            placeholder="you@example.com"
+            className={errors.email ? 'border-destructive' : ''}
+          />
+          {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
+        </div>
+      </div>
+
+      <div className="grid gap-5 sm:grid-cols-2">
+        <div className="space-y-2">
+          <Label htmlFor="phone">Phone Number (optional)</Label>
           <Input
             id="phone"
             type="tel"
@@ -83,23 +116,21 @@ export function ContactForm() {
           />
           {errors.phone && <p className="text-xs text-destructive">{errors.phone}</p>}
         </div>
+        <div className="space-y-2">
+          <Label htmlFor="subject">Subject *</Label>
+          <Input
+            id="subject"
+            value={form.subject}
+            onChange={(e) => update('subject', e.target.value)}
+            placeholder="e.g. Property dispute"
+            className={errors.subject ? 'border-destructive' : ''}
+          />
+          {errors.subject && <p className="text-xs text-destructive">{errors.subject}</p>}
+        </div>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="email">Email Address *</Label>
-        <Input
-          id="email"
-          type="email"
-          value={form.email}
-          onChange={(e) => update('email', e.target.value)}
-          placeholder="you@example.com"
-          className={errors.email ? 'border-destructive' : ''}
-        />
-        {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="message">How can we help? *</Label>
+        <Label htmlFor="message">Message *</Label>
         <Textarea
           id="message"
           value={form.message}
@@ -124,7 +155,7 @@ export function ContactForm() {
         ) : (
           <>
             <Send className="mr-2 h-4 w-4" />
-            Send Message
+            Submit
           </>
         )}
       </Button>
