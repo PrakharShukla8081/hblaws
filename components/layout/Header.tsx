@@ -91,8 +91,8 @@ export function Header() {
                   active
                     ? 'text-primary-foreground'
                     : isTransparent
-                      ? 'text-primary-foreground/85 hover:text-primary-foreground'
-                      : 'text-primary-foreground/85 hover:text-primary-foreground'
+                      ? 'text-primary-foreground/90 hover:text-primary-foreground'
+                      : 'text-primary-foreground/90 hover:text-primary-foreground'
                 )}
               >
                 {link.label}
