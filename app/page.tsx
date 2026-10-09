@@ -105,8 +105,8 @@ export default function Home() {
       >
         <img
           ref={heroImageRef}
-          src="https://images.pexels.com/photos/6077296/pexels-photo-6077296.jpeg?auto=compress&cs=tinysrgb&w=1920"
-          alt="Scales of justice in a law library"
+          src="/images/hero.jpg"
+          alt="H&B Legal and Consultant"
           className="absolute inset-0 h-full w-full object-cover opacity-45"
         />
 
@@ -356,9 +356,12 @@ export default function Home() {
 
               <ImageReveal className="rounded-xl">
 
-                <div className="flex aspect-[4/3] items-center justify-center rounded-xl border border-dashed border-muted-foreground bg-muted p-6 text-center text-xs uppercase tracking-wider text-muted-foreground shadow-sm">
-                  Add home-1.jpg to public/images/
-                </div>
+                <img
+                  src="/images/home-1.jpg"
+                  alt="H&B Legal principal office, Delhi"
+                  loading="lazy"
+                  className="aspect-[4/3] w-full rounded-xl object-cover shadow-sm"
+                />
 
               </ImageReveal>
 
@@ -372,9 +375,12 @@ export default function Home() {
 
               <ImageReveal className="rounded-xl">
 
-                <div className="flex aspect-[4/3] items-center justify-center rounded-xl border border-dashed border-muted-foreground bg-muted p-6 text-center text-xs uppercase tracking-wider text-muted-foreground shadow-sm">
-                  Add home-2.jpg to public/images/
-                </div>
+                <img
+                  src="/images/home-2.jpg"
+                  alt="Counsel at work"
+                  loading="lazy"
+                  className="aspect-[4/3] w-full rounded-xl object-cover shadow-sm"
+                />
 
               </ImageReveal>
 
