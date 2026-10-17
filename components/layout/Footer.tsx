@@ -21,15 +21,43 @@ import { toast } from '@/hooks/use-toast';
 
 export function Footer() {
   const [email, setEmail] = useState('');
+  const [subscribing, setSubscribing] = useState(false);
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
-    setEmail('');
-    toast({
-      title: 'Subscribed',
-      description: 'Thank you for subscribing to our newsletter.',
-    });
+    if (!email.trim() || subscribing) return;
+    setSubscribing(true);
+
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok && data.ok) {
+        setEmail('');
+        toast({
+          title: 'Subscribed',
+          description: 'Thank you for subscribing to our newsletter.',
+        });
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'Could not subscribe',
+          description: data.error || 'Please try again later.',
+        });
+      }
+    } catch {
+      toast({
+        variant: 'destructive',
+        title: 'Network error',
+        description: 'Please check your connection and try again.',
+      });
+    } finally {
+      setSubscribing(false);
+    }
   };
 
   return (
@@ -48,6 +76,8 @@ export function Footer() {
           <form onSubmit={handleSubscribe} className="flex w-full max-w-md gap-2">
             <Input
               type="email"
+              required
+              aria-label="Your email address"
               placeholder="Your email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -55,9 +85,10 @@ export function Footer() {
             />
             <Button
               type="submit"
+              disabled={subscribing}
               className="bg-accent text-accent-foreground hover:bg-accent/90"
             >
-              Subscribe
+              {subscribing ? 'Subscribing...' : 'Subscribe'}
               <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
           </form>

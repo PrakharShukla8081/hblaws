@@ -24,6 +24,7 @@ export function ContactForm({ showHeading = true }: ContactFormProps) {
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState(emptyForm);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [website, setWebsite] = useState(''); // honeypot, must stay empty
 
   const validate = () => {
     const e: Record<string, string> = {};
@@ -48,15 +49,40 @@ export function ContactForm({ showHeading = true }: ContactFormProps) {
     if (!validate()) return;
     setLoading(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 1200));
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...form, website }),
+      });
+      const data = await res.json().catch(() => ({}));
 
-    toast({
-      title: 'Message sent',
-      description: 'We will get back to you within 24 hours.',
-    });
-
-    setForm(emptyForm);
-    setLoading(false);
+      if (res.ok && data.ok) {
+        toast({
+          title: 'Message sent',
+          description: 'We will get back to you within 24 hours.',
+        });
+        setForm(emptyForm);
+        setErrors({});
+      } else if (res.status === 400 && data.errors) {
+        setErrors(data.errors);
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'Could not send message',
+          description:
+            data.error || 'Something went wrong. Please call or email us directly.',
+        });
+      }
+    } catch {
+      toast({
+        variant: 'destructive',
+        title: 'Network error',
+        description: 'Please check your connection and try again.',
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const update = (key: string, value: string) => {
@@ -76,6 +102,20 @@ export function ContactForm({ showHeading = true }: ContactFormProps) {
           </h3>
         </div>
       )}
+
+      {/* Honeypot field: hidden from people, bots tend to fill it */}
+      <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+        <label htmlFor="website">Leave this field empty</label>
+        <input
+          id="website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}
+        />
+      </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="space-y-2">

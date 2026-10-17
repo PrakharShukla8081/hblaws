@@ -107,10 +107,10 @@ export default function Home() {
           ref={heroImageRef}
           src="/images/hero.jpg"
           alt="H&B Legal and Consultant"
-          className="absolute inset-0 h-full w-full object-cover opacity-45"
+          className="absolute inset-0 h-full w-full object-cover object-[68%_center] opacity-80 md:object-center"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-primary/40 dark:from-background dark:via-background/95 dark:to-background/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/70 to-primary/10 dark:from-background dark:via-background/70 dark:to-background/10" />
 
         <div className="relative mx-auto w-full max-w-7xl px-4 pb-16 pt-32 md:px-8">
           <div className="max-w-3xl">
