@@ -205,7 +205,17 @@ export function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-primary-foreground/20">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-5 text-xs text-primary-foreground/50 md:flex-row md:px-8">
-          <p>&copy; {new Date().getFullYear()} H&B Legal and Consultant. All rights reserved.</p>
+          <div className="flex flex-col items-center gap-2 md:items-start">
+            <p>&copy; {new Date().getFullYear()} H&B Legal and Consultant. All rights reserved.</p>
+            <p className="flex gap-4">
+              <Link href="/disclaimer" className="transition-colors hover:text-accent">
+                Disclaimer
+              </Link>
+              <Link href="/privacy-policy" className="transition-colors hover:text-accent">
+                Privacy Policy
+              </Link>
+            </p>
+          </div>
           <p className="text-center md:text-right">
             The Bar Council of India does not permit advertisement or solicitation by advocates in any form.
           </p>

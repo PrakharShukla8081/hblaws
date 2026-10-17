@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { X, Cookie } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -29,21 +30,24 @@ export function CookieBanner() {
           <div className="flex items-start gap-3">
             <Cookie className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
             <p className="text-sm text-muted-foreground">
-              We use cookies to enhance your browsing experience and analyze site traffic.
-              By clicking &quot;Accept&quot;, you consent to our use of cookies.
+              This website stores a few small items in your browser to remember your
+              preferences, such as the colour theme and your acknowledgement of our
+              disclaimer. We do not use advertising or tracking cookies. Read our{' '}
+              <Link href="/privacy-policy" className="font-medium text-primary underline">
+                Privacy Policy
+              </Link>
+              .
             </p>
           </div>
           <div className="flex shrink-0 gap-2">
-            <Button variant="outline" size="sm" className="min-h-11" onClick={handleDismiss}>
-              Decline
-            </Button>
             <Button size="sm" className="min-h-11 bg-accent text-accent-foreground hover:bg-accent/90" onClick={handleDismiss}>
-              Accept
+              Got it
             </Button>
           </div>
         </div>
         <button
           onClick={handleDismiss}
+          aria-label="Close"
           className="absolute right-2 top-2 flex h-11 w-11 items-center justify-center text-muted-foreground transition-colors hover:text-foreground"
         >
           <X className="h-4 w-4" />
