@@ -108,7 +108,7 @@ export default function Home() {
           src="/images/hero.jpg"
           alt="H&B Legal and Consultant"
           className="absolute inset-0 h-full w-full object-cover object-[68%_center] opacity-80 md:object-center"
-        />
+        /> 
 
         <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/70 to-primary/10 dark:from-background dark:via-background/70 dark:to-background/10" />
 
